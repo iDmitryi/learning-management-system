@@ -23,7 +23,6 @@ const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
     router.push(href)
   }
 
-  // TODO: Layout - 17:15
   return (
     <button
       onClick={onClick}
