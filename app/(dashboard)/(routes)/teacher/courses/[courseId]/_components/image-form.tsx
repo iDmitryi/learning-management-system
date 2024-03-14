@@ -1,28 +1,16 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
-import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form'
-
+import { FileUpload } from '@/components/file-upload'
 import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import { cn } from '@/lib/utils'
+import { Course } from '@prisma/client'
 import { ImageIcon, Pencil, PlusCircle } from 'lucide-react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { Course } from '@prisma/client'
-import Image from 'next/image'
-import { FileUpload } from '@/components/file-upload'
 
 interface ImageFormProps {
   initialData: Course
@@ -37,15 +25,6 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const toggleEdit = () => setIsEditing(prevState => !prevState)
   const router = useRouter()
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      imageUrl: initialData?.imageUrl || '',
-    },
-  })
-
-  const { isSubmitting, isValid } = form.formState
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -84,7 +63,7 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
             <ImageIcon className="h-10 w-10 text-slate-500" />
           </div>
         ) : (
-          <div className="relativeasect-video mt-2">
+          <div className="relative aspect-video mt-2">
             <Image
               alt="Upload"
               fill
