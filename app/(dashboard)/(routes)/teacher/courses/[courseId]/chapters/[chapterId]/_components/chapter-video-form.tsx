@@ -7,7 +7,7 @@ import { FileUpload } from '@/components/file-upload'
 import { Button } from '@/components/ui/button'
 import { Chapter, MuxData } from '@prisma/client'
 import { Pencil, PlusCircle, VideoIcon } from 'lucide-react'
-import Image from 'next/image'
+import MuxPlayer from '@mux/mux-player-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -71,7 +71,9 @@ const ChapterVideoForm = ({
             <VideoIcon className="h-10 w-10 text-slate-500" />
           </div>
         ) : (
-          <div className="relative aspect-video mt-2">Video Uploaded</div>
+          <div className="relative aspect-video mt-2">
+            <MuxPlayer playbackId={initialData?.muxData?.playbackId || ''} />
+          </div>
         ))}
       {isEditing && (
         <div>
