@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs'
 import { ArrowLeft, LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import ChapterDescriptionForm from './_components/chapter-description-form'
 import ChapterTitleForm from './_components/chapter-title-form'
 
 const ChapterIdPage = async ({
@@ -64,6 +65,11 @@ const ChapterIdPage = async ({
               <h2 className="text-xl">Customize your chapter</h2>
             </div>
             <ChapterTitleForm
+              initialData={chapter}
+              courseId={params.courseId}
+              chapterId={params.chapterId}
+            />
+            <ChapterDescriptionForm
               initialData={chapter}
               courseId={params.courseId}
               chapterId={params.chapterId}
