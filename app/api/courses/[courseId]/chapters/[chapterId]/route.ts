@@ -2,11 +2,90 @@ import { db } from '@/lib/db'
 import { auth } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 import Mux from '@mux/mux-node'
+import { errors } from '@/lib/utils'
+import { log } from 'console'
 
 const { video } = new Mux({
   tokenId: process.env.MUX_TOKEN_ID,
   tokenSecret: process.env.MUX_TOKEN_SECRET,
 })
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { courseId: string; chapterId: string } }
+) {
+  console.log({ params })
+
+  try {
+    const { userId } = auth()
+
+    if (!userId) return errors.unautorized
+
+    const ownCourse = await db.course.findUnique({
+      where: {
+        id: params.courseId,
+        userId,
+      },
+    })
+
+    if (!ownCourse) return errors.unautorized
+
+    const chapter = await db.chapter.findUnique({
+      where: {
+        id: params.chapterId,
+        courseId: params.courseId,
+      },
+    })
+
+    if (!chapter) return errors.not_found
+
+    if (chapter.videoUrl) {
+      const existingMuxData = await db.muxData.findFirst({
+        where: {
+          chapterId: params.chapterId,
+        },
+      })
+
+      if (existingMuxData) {
+        await video.assets.delete(existingMuxData.assetId)
+        await db.muxData.delete({
+          where: {
+            id: existingMuxData.id,
+          },
+        })
+      }
+    }
+
+    const deleteChapter = await db.chapter.delete({
+      where: {
+        id: params.chapterId,
+      },
+    })
+
+    const publishedChaptersInCourse = await db.chapter.findMany({
+      where: {
+        courseId: params.courseId,
+        isPublished: true,
+      },
+    })
+
+    if (!publishedChaptersInCourse.length) {
+      await db.course.update({
+        where: {
+          id: params.courseId,
+        },
+        data: {
+          isPublished: false,
+        },
+      })
+    }
+
+    return NextResponse.json(deleteChapter)
+  } catch (error) {
+    console.log('[CHAPTER_ID_DELETE]', error)
+    return errors.internal
+  }
+}
 
 export async function PATCH(
   req: Request,
