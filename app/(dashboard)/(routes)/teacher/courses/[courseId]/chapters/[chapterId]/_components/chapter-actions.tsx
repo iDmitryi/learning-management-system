@@ -2,6 +2,7 @@
 
 import { ConfirmModal } from '@/components/modals/confirm-modal'
 import { Button } from '@/components/ui/button'
+import { texts } from '@/lib/utils'
 import axios from 'axios'
 import { Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -25,6 +26,30 @@ export const ChapterActions = ({
 
   const [isLoading, setIsEditing] = useState(false)
 
+  const onClick = async () => {
+    try {
+      setIsEditing(true)
+
+      if (isPublished) {
+        await axios.patch(
+          `/api/courses/${courseId}/chapters/${chapterId}/unpublish`
+        )
+        toast.success('Chapter unpublished')
+      } else {
+        await axios.patch(
+          `/api/courses/${courseId}/chapters/${chapterId}/publish`
+        )
+        toast.success('Chapter published')
+      }
+
+      router.refresh()
+    } catch (error) {
+      toast.error(texts.error)
+    } finally {
+      setIsEditing(false)
+    }
+  }
+
   const onDelete = async () => {
     try {
       setIsEditing(true)
@@ -44,7 +69,7 @@ export const ChapterActions = ({
   return (
     <div className="flex items-center gap-x-2">
       <Button
-        onClick={() => {}}
+        onClick={onClick}
         disabled={disabled || isLoading}
         variant="outline"
         size="sm"
