@@ -3,7 +3,6 @@ import { auth } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 import Mux from '@mux/mux-node'
 import { errors } from '@/lib/utils'
-import { log } from 'console'
 
 const { video } = new Mux({
   tokenId: process.env.MUX_TOKEN_ID,
