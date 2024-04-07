@@ -6,7 +6,7 @@ export default authMiddleware({
   // Routes that can always be accessed, and have
   // no authentication information
   //   ignoredRoutes: ['/no-auth-in-this-route'],
-  publicRoutes: ['/api/uploadthing'],
+  publicRoutes: ['/api/uploadthing', '/api/webhook'],
 })
 
 export const config = {

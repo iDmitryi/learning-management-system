@@ -11,6 +11,7 @@ export const errors = {
   internal: new NextResponse('Internal Error', { status: 500 }),
   not_found: new NextResponse('Not Found', { status: 404 }),
   missing_fields: new NextResponse('Missing required fields', { status: 400 }),
+  already_purchased: new NextResponse('Already purchased', { status: 400 }),
 }
 
 export const texts = {

@@ -42,3 +42,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ### `npx prisma studio` - prisma studio
 
 ### `npx prisma migrate reset` - reset prisma (run `$  npx prisma db push` after reset)
+
+### `stripe listen --forward-to localhost:3000/api/webhook` run stripe
