@@ -40,3 +40,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ### `npx prisma db push` - push generated schema to live db
 
 ### `npx prisma studio` - prisma studio
+
+### `npx prisma migrate reset` - reset prisma (run `$  npx prisma db push` after reset)
