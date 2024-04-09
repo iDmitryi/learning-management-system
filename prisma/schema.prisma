@@ -10,7 +10,7 @@ generator client {
 }
 
 model Course {
-  id          String  @id  @default(uuid()) @map("_id") @db.ObjectId
+  id          String  @id  @default(auto()) @map("_id") @db.ObjectId
   userId      String
   title       String 
   description String? 
@@ -33,13 +33,13 @@ model Course {
 }
 
 model Category {
-  id      String   @id @default(uuid()) @map("_id") @db.ObjectId
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
   name    String   @unique
   courses Course[]
 }
 
 model Attachment {
-  id   String @id  @default(uuid()) @map("_id") @db.ObjectId
+  id   String @id  @default(auto()) @map("_id") @db.ObjectId
   name String
   url  String
 
@@ -53,7 +53,7 @@ model Attachment {
 }
 
 model Chapter {
-  id          String  @id @default(uuid()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String? 
   videoUrl    String? 
@@ -72,7 +72,7 @@ model Chapter {
 }
 
 model MuxData {
-  id         String  @id  @default(uuid()) @map("_id") @db.ObjectId
+  id         String  @id  @default(auto()) @map("_id") @db.ObjectId
   assetId    String
   playbackId String?
 
@@ -82,7 +82,7 @@ model MuxData {
 }
 
 model UserProgress {
-  id     String @id  @default(uuid()) @map("_id") @db.ObjectId
+  id     String @id  @default(auto()) @map("_id") @db.ObjectId
   userId String
 
   chapterId String
@@ -98,7 +98,7 @@ model UserProgress {
 }
 
 model Purchase {
-  id     String @id  @default(uuid()) @map("_id") @db.ObjectId
+  id     String @id  @default(auto()) @map("_id") @db.ObjectId
   userId String
 
   courseId String
@@ -112,7 +112,7 @@ model Purchase {
 }
 
 model StripeCustomer {
-  id               String @id @default(uuid()) @map("_id") @db.ObjectId
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
   userId           String @unique
   stripeCustomerId String @unique
 
