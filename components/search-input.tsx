@@ -34,11 +34,11 @@ export const SearchInput = () => {
 
   return (
     <div className="relative">
-      <SearchIcon className="w-4 h-4 absolute top-3 left-3 text-slate-600" />
+      <SearchIcon className="w-4 h-4 absolute top-3 left-3 text-slate-600 dark:text-zinc-50 " />
       <Input
         value={value}
         onChange={e => setValue(e.target.value)}
-        className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200"
+        className="w-full md:w-[300px] pl-9 rounded-full  focus-visible:ring-slate-200 dark:bg-zinc-900"
         placeholder="Search for a course"
       />
     </div>

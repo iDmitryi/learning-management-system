@@ -7,6 +7,7 @@ import { LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { SearchInput } from './search-input'
 import { isTeacher } from '@/lib/teacher'
+import { ThemeToggle } from '@/app/(dashboard)/_components/ThemeToggle'
 
 export const NavbarRoutes = () => {
   const { userId } = useAuth()
@@ -24,7 +25,7 @@ export const NavbarRoutes = () => {
           <SearchInput />
         </div>
       )}
-      <div className="flex gap-x-2 ml-auto">
+      <div className="flex gap-x-2 ml-auto items-center">
         {isTeacherPage || isCoursePage ? (
           <Link href="/">
             <Button size="sm" variant="ghost">
@@ -42,6 +43,7 @@ export const NavbarRoutes = () => {
           <></>
         )}
         <UserButton afterSignOutUrl="/" />
+        <ThemeToggle />
       </div>
     </>
   )
