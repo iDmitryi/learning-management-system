@@ -80,7 +80,7 @@ export const ChaptersList = ({
                     className={cn(
                       'flex items-center gap-x-2 dark:text-zinc-200 border-slate-200 border text-slate-700 rounded-md mb-4 text-sm',
                       chapter.isPublished &&
-                        'bg-sky-100 border-sky-700 text-sky-700'
+                        'bg-sky-100 border-sky-700 text-sky-700 dark:bg-zinc-900'
                     )}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
